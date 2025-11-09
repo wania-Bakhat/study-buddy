@@ -1,0 +1,104 @@
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .auth-card {
+        padding: 30px 20px;
+    }
+
+    .sidebar {
+        width: 280px;
+    }
+
+    .timer-display {
+        font-size: 3.5rem;
+    }
+
+    .calendar-grid {
+        grid-template-columns: repeat(7, 1fr);
+        gap: 3px;
+    }
+
+    .calendar-day {
+        padding: 6px 3px;
+        font-size: 0.85rem;
+    }
+
+    .task-meta {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .task-due {
+        margin-right: 0;
+    }
+
+    .timer-controls {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .timer-btn {
+        width: 200px;
+        justify-content: center;
+    }
+
+    .main-content {
+        padding: 15px;
+    }
+
+    .page-title {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .add-task-btn {
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .auth-card {
+        padding: 20px 15px;
+    }
+
+    .logo h1 {
+        font-size: 2rem;
+    }
+
+    .header-left h1 {
+        font-size: 1.5rem;
+    }
+
+    .timer-display {
+        font-size: 2.5rem;
+    }
+
+    .calendar-header {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .streak-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .streak-icon {
+        margin-right: 0;
+    }
+
+    .modal-content {
+        margin: 20px;
+        padding: 20px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+}
