@@ -1,74 +1,97 @@
-// Authentication module
-const auth = {
-    init: function() {
-        this.bindEvents();
-        this.checkExistingSession();
-    },
+/* Login/Signup Page Styles */
+.auth-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    padding: 20px;
+}
 
-    bindEvents: function() {
-        const loginBtn = document.getElementById('login-btn');
-        const logoutBtn = document.getElementById('logout-btn');
+.auth-card {
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 40px;
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+}
 
-        if (loginBtn) {
-            loginBtn.addEventListener('click', this.handleLogin.bind(this));
-        }
+.logo {
+    margin-bottom: 30px;
+}
 
-        if (logoutBtn) {
-            logoutBtn.addEventListener('click', this.handleLogout.bind(this));
-        }
-    },
+.logo h1 {
+    color: var(--primary);
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
 
-    checkExistingSession: function() {
-        const savedUser = localStorage.getItem('currentUser');
-        if (savedUser) {
-            AppState.currentUser = JSON.parse(savedUser);
-            this.showDashboard();
-        }
-    },
+.logo p {
+    color: var(--gray);
+    font-size: 1rem;
+}
 
-    handleLogin: function() {
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
+.input-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
 
-        if (!email || !password) {
-            notifications.show('Error', 'Please enter both email and password', 'error');
-            return;
-        }
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--dark);
+}
 
-        // In a real app, this would validate with a backend
-        AppState.currentUser = {
-            email: email,
-            name: email.split('@')[0],
-            joined: new Date().toISOString()
-        };
+.input-group input {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid var(--light-gray);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: var(--transition);
+}
 
-        localStorage.setItem('currentUser', JSON.stringify(AppState.currentUser));
-        this.showDashboard();
-        notifications.show('Welcome!', 'Successfully logged in to StudyBuddy', 'success');
-        
-        // Load user-specific data
-        tasks.loadTasks();
-        streaks.loadStreak();
-    },
+.input-group input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+}
 
-    handleLogout: function() {
-        AppState.currentUser = null;
-        localStorage.removeItem('currentUser');
-        this.showAuthPage();
-        notifications.show('Logged Out', 'You have been successfully logged out', 'success');
-    },
+.btn {
+    display: inline-block;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 14px 28px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    width: 100%;
+    margin-top: 10px;
+}
 
-    showAuthPage: function() {
-        document.getElementById('auth-page').style.display = 'flex';
-        document.getElementById('dashboard').style.display = 'none';
-        
-        // Clear form
-        document.getElementById('email').value = '';
-        document.getElementById('password').value = '';
-    },
+.btn:hover {
+    background-color: var(--secondary);
+    transform: translateY(-2px);
+}
 
-    showDashboard: function() {
-        document.getElementById('auth-page').style.display = 'none';
-        document.getElementById('dashboard').style.display = 'block';
-    }
-};
+.auth-link {
+    margin-top: 20px;
+    color: var(--gray);
+}
+
+.auth-link a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.auth-link a:hover {
+    text-decoration: underline;
+}
