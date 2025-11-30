@@ -1,4 +1,6 @@
-/* Responsive Styles */
+/* Enhanced Responsive Styles */
+
+/* Tablet Styles */
 @media (max-width: 768px) {
     .auth-card {
         padding: 30px 20px;
@@ -22,6 +24,23 @@
         font-size: 0.85rem;
     }
 
+    .task-controls {
+        flex-direction: column;
+    }
+
+    .search-box {
+        min-width: 100%;
+    }
+
+    .filter-sort {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .filter-sort select {
+        width: 100%;
+    }
+
     .task-meta {
         flex-direction: column;
         gap: 5px;
@@ -32,12 +51,12 @@
     }
 
     .timer-controls {
-        flex-direction: column;
-        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
     .timer-btn {
-        width: 200px;
+        min-width: 150px;
         justify-content: center;
     }
 
@@ -58,8 +77,52 @@
         height: 50px;
         font-size: 1.2rem;
     }
+
+    /* Study Room */
+    .study-room-container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .room-info {
+        border-right: none;
+        border-bottom: 1px solid var(--light-gray);
+        padding-right: 0;
+        padding-bottom: 20px;
+    }
+
+    .room-timer {
+        font-size: 2rem;
+    }
+
+    /* Progress Stats */
+    .progress-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-card {
+        text-align: left;
+    }
+
+    /* Assistant */
+    .quick-actions {
+        justify-content: center;
+    }
+
+    .quick-btn {
+        flex: 1;
+        min-width: 120px;
+    }
+
+    /* Notification */
+    .notification {
+        left: 10px;
+        right: 10px;
+        min-width: auto;
+    }
 }
 
+/* Mobile Styles */
 @media (max-width: 480px) {
     .auth-card {
         padding: 20px 15px;
@@ -83,6 +146,10 @@
         text-align: center;
     }
 
+    .calendar-nav {
+        justify-content: center;
+    }
+
     .streak-container {
         flex-direction: column;
         text-align: center;
@@ -100,5 +167,261 @@
 
     .form-actions {
         flex-direction: column;
+    }
+
+    .form-actions button {
+        width: 100%;
+    }
+
+    .task-item {
+        flex-wrap: wrap;
+    }
+
+    .task-actions {
+        width: 100%;
+        justify-content: flex-end;
+        margin-top: 10px;
+        opacity: 1;
+    }
+
+    .timer-controls {
+        width: 100%;
+    }
+
+    .timer-btn {
+        width: 100%;
+        max-width: 250px;
+    }
+
+    .setting-group {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .setting-group label {
+        width: 100%;
+    }
+
+    .setting-group input[type="number"] {
+        width: 100%;
+    }
+
+    /* Study Room Mobile */
+    .chat-messages {
+        min-height: 300px;
+        max-height: 400px;
+    }
+
+    .chat-message {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .chat-message.own {
+        margin-left: 10%;
+    }
+
+    /* Assistant Mobile */
+    .assistant-chat {
+        min-height: 300px;
+        max-height: 400px;
+    }
+
+    .user-message {
+        margin-left: 10%;
+    }
+
+    .quick-btn {
+        width: 100%;
+        min-width: auto;
+    }
+
+    /* Progress Chart */
+    #progress-canvas {
+        height: 250px;
+    }
+
+    /* Feedback */
+    .feedback-form textarea {
+        font-size: 0.9rem;
+    }
+
+    /* Stats Grid */
+    .streak-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-card p {
+        font-size: 1.5rem;
+    }
+}
+
+/* Extra Small Mobile */
+@media (max-width: 360px) {
+    .logo h1 {
+        font-size: 1.75rem;
+    }
+
+    .header-left h1 {
+        font-size: 1.25rem;
+    }
+
+    .timer-display {
+        font-size: 2rem;
+    }
+
+    .page-title h2 {
+        font-size: 1.5rem;
+    }
+
+    .calendar-day {
+        padding: 4px 2px;
+        font-size: 0.75rem;
+    }
+
+    .task-title {
+        font-size: 0.95rem;
+    }
+
+    .task-meta {
+        font-size: 0.75rem;
+    }
+
+    .add-task-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1rem;
+    }
+
+    .btn {
+        padding: 10px 18px;
+        font-size: 0.9rem;
+    }
+
+    .modal-content {
+        padding: 15px;
+    }
+}
+
+/* Landscape Mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+    .auth-container {
+        padding: 10px;
+    }
+
+    .auth-card {
+        max-width: 600px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .logo {
+        grid-column: 1 / -1;
+        margin-bottom: 10px;
+    }
+
+    .calendar-container {
+        padding: 15px;
+    }
+
+    .timer-container {
+        padding: 20px;
+    }
+
+    .timer-display {
+        margin: 15px 0;
+    }
+}
+
+/* Large Screens */
+@media (min-width: 1200px) {
+    .main-content {
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .timer-container {
+        max-width: 600px;
+    }
+
+    .assistant-container {
+        max-width: 900px;
+    }
+
+    .taskboard {
+        padding: 30px;
+    }
+
+    .calendar-container {
+        padding: 30px;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .sidebar,
+    .header,
+    .add-task-btn,
+    .task-actions,
+    .notification,
+    .menu-toggle,
+    .overlay {
+        display: none !important;
+    }
+
+    .main-content {
+        padding: 0;
+    }
+
+    .page {
+        page-break-after: always;
+    }
+
+    .task-item {
+        page-break-inside: avoid;
+    }
+}
+
+/* Accessibility - High Contrast Mode */
+@media (prefers-contrast: high) {
+    :root {
+        --primary: #0000ff;
+        --secondary: #000080;
+        --light-gray: #cccccc;
+    }
+
+    .task-item:hover {
+        background-color: #f0f0f0;
+        border: 2px solid var(--primary);
+    }
+
+    .btn {
+        border: 2px solid var(--dark);
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .notification {
+        transition: none;
+    }
+
+    .sidebar {
+        transition: none;
+    }
+
+    .overlay {
+        transition: none;
     }
 }
