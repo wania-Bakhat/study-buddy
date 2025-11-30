@@ -1,97 +1,101 @@
-/* Login/Signup Page Styles */
-.auth-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    padding: 20px;
-}
+// Authentication module
+const auth = {
+    init: function() {
+        console.log('Auth module initializing...');
+        this.bindEvents();
+        this.checkExistingSession();
+    },
 
-.auth-card {
-    background-color: white;
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
-    padding: 40px;
-    width: 100%;
-    max-width: 450px;
-    text-align: center;
-}
+    bindEvents: function() {
+        const loginBtn = document.getElementById('login-btn');
+        const logoutBtn = document.getElementById('logout-btn');
 
-.logo {
-    margin-bottom: 30px;
-}
+        if (loginBtn) {
+            loginBtn.addEventListener('click', this.handleLogin.bind(this));
+            console.log('Login button event listener added');
+        } else {
+            console.error('Login button not found!');
+        }
 
-.logo h1 {
-    color: var(--primary);
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-}
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', this.handleLogout.bind(this));
+        }
+    },
 
-.logo p {
-    color: var(--gray);
-    font-size: 1rem;
-}
+    checkExistingSession: function() {
+        const savedUser = localStorage.getItem('currentUser');
+        if (savedUser) {
+            AppState.currentUser = JSON.parse(savedUser);
+            this.showDashboard();
+        }
+    },
 
-.input-group {
-    margin-bottom: 20px;
-    text-align: left;
-}
+    handleLogin: function() {
+        console.log('Login button clicked!');
+        
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
 
-.input-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-    color: var(--dark);
-}
+        console.log('Email:', email, 'Password:', password ? '***' : 'empty');
 
-.input-group input {
-    width: 100%;
-    padding: 14px;
-    border: 1px solid var(--light-gray);
-    border-radius: var(--border-radius);
-    font-size: 1rem;
-    transition: var(--transition);
-}
+        if (!email || !password) {
+            alert('Please enter both email and password');
+            return;
+        }
 
-.input-group input:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
-}
+        // In a real app, this would validate with a backend
+        AppState.currentUser = {
+            email: email,
+            name: email.split('@')[0],
+            joined: new Date().toISOString()
+        };
 
-.btn {
-    display: inline-block;
-    background-color: var(--primary);
-    color: white;
-    border: none;
-    border-radius: var(--border-radius);
-    padding: 14px 28px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: var(--transition);
-    width: 100%;
-    margin-top: 10px;
-}
+        localStorage.setItem('currentUser', JSON.stringify(AppState.currentUser));
+        
+        // Save user to backend
+        if (typeof backend !== 'undefined') {
+            backend.saveUser(AppState.currentUser);
+        }
+        
+        this.showDashboard();
+        
+        // Show success notification
+        if (typeof notifications !== 'undefined') {
+            notifications.show('Welcome!', 'Successfully logged in to StudyBuddy', 'success');
+        }
+        
+        // Load user-specific data
+        if (typeof tasks !== 'undefined') {
+            tasks.loadTasks();
+        }
+        if (typeof streaks !== 'undefined') {
+            streaks.loadStreak();
+        }
+    },
 
-.btn:hover {
-    background-color: var(--secondary);
-    transform: translateY(-2px);
-}
+    handleLogout: function() {
+        AppState.currentUser = null;
+        localStorage.removeItem('currentUser');
+        this.showAuthPage();
+        
+        if (typeof notifications !== 'undefined') {
+            notifications.show('Logged Out', 'You have been successfully logged out', 'success');
+        }
+    },
 
-.auth-link {
-    margin-top: 20px;
-    color: var(--gray);
-}
+    showAuthPage: function() {
+        console.log('Showing auth page...');
+        document.getElementById('auth-page').style.display = 'flex';
+        document.getElementById('dashboard').style.display = 'none';
+        
+        // Clear form
+        document.getElementById('email').value = '';
+        document.getElementById('password').value = '';
+    },
 
-.auth-link a {
-    color: var(--primary);
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.auth-link a:hover {
-    text-decoration: underline;
-}
+    showDashboard: function() {
+        console.log('Showing dashboard...');
+        document.getElementById('auth-page').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+    }
+};
