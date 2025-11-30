@@ -1,5 +1,8 @@
 // Main application initialization
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize backend first
+    backend.init();
+    
     // Initialize all modules
     auth.init();
     tasks.init();
@@ -7,15 +10,21 @@ document.addEventListener('DOMContentLoaded', function() {
     timer.init();
     streaks.init();
     notifications.init();
+    progress.init();
+    studyRoom.init();
+    assistant.init();
 
     // Set current date
     const now = new Date();
-    document.getElementById('current-date').textContent = now.toLocaleDateString('en-US', { 
-        weekday: 'long', 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric' 
-    });
+    const dateEl = document.getElementById('current-date');
+    if (dateEl) {
+        dateEl.textContent = now.toLocaleDateString('en-US', { 
+            weekday: 'long', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+        });
+    }
 
     console.log('StudyBuddy initialized successfully!');
 });
@@ -26,6 +35,8 @@ const AppState = {
     currentPage: 'taskboard',
     tasks: [],
     streak: 0,
+    longestStreak: 0,
+    totalStudyDays: 0,
     lastStudyDate: ''
 };
 
@@ -54,6 +65,14 @@ function showPage(pageName) {
     }
 
     AppState.currentPage = pageName;
+
+    // Update page-specific content
+    if (pageName === 'progress') {
+        progress.updateProgress();
+        progress.renderChart();
+    } else if (pageName === 'streaks') {
+        streaks.updateDisplay();
+    }
 }
 
 function toggleSidebar() {
@@ -89,8 +108,25 @@ document.addEventListener('DOMContentLoaded', function() {
             const page = link.getAttribute('data-page');
             if (page) {
                 showPage(page);
-                toggleSidebar();
+                
+                // Close sidebar on mobile after selecting
+                if (window.innerWidth <= 768) {
+                    toggleSidebar();
+                }
             }
         });
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            
+            if (sidebar && sidebar.classList.contains('active')) {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+            }
+        }
     });
 });
